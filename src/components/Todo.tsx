@@ -6,10 +6,11 @@ const Todo = () => {
     <div className='contenedor'>
       <h2>Mi Proyecto TODO</h2>
 
-      <section id="contacto">
+      <section id="busqueda">
         <div>
-          <input type="text" />
-          <input type="button" value="Save" />
+          <input type="text" name='taskname' id='taskname' placeholder='Ingrese una nueva tarea...'/>&nbsp;&nbsp;
+          <input type="button" value="Save" className='btn btn-primary' />&nbsp;&nbsp;
+          {/* <input type="reset" value="Limpiar" className='btn btn-secondary' /> */}
         </div>
       </section>
       <br />

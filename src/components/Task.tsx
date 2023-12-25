@@ -8,9 +8,15 @@ const Task = ({taskName}:Props) => {
   return (
     <>
         <section className='caja-tarea'>
-            <input type="checkbox" name="" id="" />&nbsp;&nbsp;
-            <label htmlFor="">{taskName} </label>&nbsp;&nbsp;
-            <input type="button" value="Remove" />
+            <div style={{width:'10%'}}>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div style={{width:'60%', textAlign:'left'}}>
+              <label>{taskName}</label>
+            </div>
+            <div style={{width:'30%', textAlign:'right'}}>
+              <input type="button" value="Remove" className='btn btn-danger btn-sm'/>
+            </div>
         </section>
     </>
   )

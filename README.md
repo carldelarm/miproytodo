@@ -2,3 +2,5 @@
 
 Este proyecto consiste en gestionador de tareas por hacer o TODO en donde se podrá adicionar, actualizar, eliminar una tarea.
 
+Version Node: 21.4.0
+
