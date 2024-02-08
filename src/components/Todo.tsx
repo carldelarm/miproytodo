@@ -1,19 +1,39 @@
 import { useEffect, useState } from 'react';
 import Task from './Task';
+import { Tarea } from '../types/tarea';
+
+const data: Tarea[] = [
+  {
+    id: 1,
+    title: 'Trabajar',
+    done: false
+  },
+  {
+    id: 2,
+    title: 'Estudiar',
+    done: false
+  },
+  {
+    id: 3,
+    title: 'Ir al Gym',
+    done: false
+  }
+]
+
 
 const Todo = () => {
 
   const [contador,setContador] = useState(0);
-  const [tasksList, setTasksList] = useState([]);
+  const [tasksList, setTasksList] = useState(data);
   const [description, setDescription] = useState("");
 
   const getListTasks = async () => {
-    console.log('Iniciando mi aplicación TODO');
+    console.log('Metodo que deberia consultar todas las tareas');
+    setContador(tasksList.length+1);
   }
 
   useEffect(() => {
     getListTasks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onAddNewTask = (event:any) => {
@@ -27,9 +47,9 @@ const Todo = () => {
 
     let existe = false;
 
-    tasksList.forEach((element) => {
-      const { name } = element;
-      const itemName:string = name;
+    tasksList.forEach((element:Tarea) => {
+      const { title } = element;
+      const itemName:string = title;
       if(description.toLowerCase().trim() === itemName.toLowerCase().trim()) existe = true;
     });
 
@@ -39,9 +59,9 @@ const Todo = () => {
       return;
     }
 
-    const newTask = {
+    const newTask: Tarea = {
       id: contador,
-      name: `${description}`,
+      title: `${description}`,
       done: false
     }
 
@@ -60,7 +80,7 @@ const Todo = () => {
 
   return (
       <div className='contenedor'>
-        <h2>Mi Proyecto TODO</h2>
+        <h2>TODO APP</h2>
 
         <section id="busqueda">
           <div>
@@ -80,10 +100,10 @@ const Todo = () => {
         <br />
 
         {
-          tasksList.map( (dataTask:any) => (
+          tasksList.map( (dataTask: Tarea) => (
             <Task key={dataTask.id} 
                   id={dataTask.id} 
-                  taskName={`${dataTask.name}`} 
+                  taskName={`${dataTask.title}`} 
                   taskDone={dataTask.done}
                   tasksList={tasksList}
                   setTasksList={setTasksList}

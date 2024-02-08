@@ -41,12 +41,15 @@ const Task = ({id,taskName,taskDone,tasksList,setTasksList}:Props) => {
         <div style={{width:'50%', textAlign:'left'}}>
           <input type="text" value={taskName} className="input-task" onChange={onUpdateTask}/>
         </div>
-         <div className="div-actualizar" style={{width:'20%', textAlign:'right'}}>
+
+{/*          <div className="div-actualizar" style={{width:'20%', textAlign:'right'}}>
             <button className='btn btn-primary btn-sm' 
               name={`btn_update_${id}`} id={`btn_update_${id}`}
               onClick={onUpdateTask}>Actualizar</button>&nbsp;
         </div>
-        <div style={{width:'20%', textAlign:'right'}}>
+ */}
+
+        <div style={{width:'40%', textAlign:'right'}}>
           <button className='btn btn-danger btn-sm' 
             name={`btn_remove_${id}`} id={`btn_remove_${id}`}
             onClick={onDeleteTask}>Remover</button>
