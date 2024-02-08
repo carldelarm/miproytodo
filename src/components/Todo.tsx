@@ -1,4 +1,3 @@
-//import React from 'react';
 import { useEffect, useState } from 'react';
 import Task from './Task';
 
@@ -74,7 +73,7 @@ const Todo = () => {
                   value={ description }
                   onChange={ onInputChange }
               />&nbsp;&nbsp;
-              <button type='submit' className='btn btn-primary' onClick={onAddNewTask}>Add Task</button>&nbsp;&nbsp;
+              <button type='submit' className='btn btn-primary' onClick={onAddNewTask}>Adicionar</button>&nbsp;&nbsp;
             </form>
           </div>
         </section>
@@ -85,6 +84,7 @@ const Todo = () => {
             <Task key={dataTask.id} 
                   id={dataTask.id} 
                   taskName={`${dataTask.name}`} 
+                  taskDone={dataTask.done}
                   tasksList={tasksList}
                   setTasksList={setTasksList}
              />

@@ -1,12 +1,16 @@
+import { useState } from "react";
 
 interface Props {
   id:number,
   taskName: string,
+  taskDone:boolean,
   tasksList:any[],
   setTasksList:any
 }
 
-const Task = ({id,taskName,tasksList,setTasksList}:Props) => {
+const Task = ({id,taskName,taskDone,tasksList,setTasksList}:Props) => {
+
+  const [done, setDone] = useState(taskDone);
 
   const onDeleteTask = (event:any) => {
     const btnSelected = event.target.id;
@@ -16,18 +20,36 @@ const Task = ({id,taskName,tasksList,setTasksList}:Props) => {
     setTasksList(result);
   }
 
+  const onUpdateTask = () => {
+    console.log('Actualizando input');
+  }
+
+  const onMarkTask = () => {
+    setDone(!done);
+  }
+
   return (
     <section className='caja-tarea'>
         <div style={{width:'10%'}}>
-          <input type="checkbox" name={`task_${id}`} id={`task_${id}`} />
+          <input type="checkbox" 
+                name={`task_${id}`} 
+                id={`task_${id}`} 
+                checked={done} 
+                onChange={onMarkTask}
+          />
         </div>
-        <div style={{width:'60%', textAlign:'left'}}>
-          <label>{taskName}</label>
+        <div style={{width:'50%', textAlign:'left'}}>
+          <input type="text" value={taskName} className="input-task" onChange={onUpdateTask}/>
         </div>
-        <div style={{width:'30%', textAlign:'right'}}>
+         <div className="div-actualizar" style={{width:'20%', textAlign:'right'}}>
+            <button className='btn btn-primary btn-sm' 
+              name={`btn_update_${id}`} id={`btn_update_${id}`}
+              onClick={onUpdateTask}>Actualizar</button>&nbsp;
+        </div>
+        <div style={{width:'20%', textAlign:'right'}}>
           <button className='btn btn-danger btn-sm' 
             name={`btn_remove_${id}`} id={`btn_remove_${id}`}
-            onClick={onDeleteTask}>Remove</button>
+            onClick={onDeleteTask}>Remover</button>
         </div>
     </section>
   )

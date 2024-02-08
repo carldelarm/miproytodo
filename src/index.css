@@ -25,7 +25,6 @@
 .contenedor-principal{
   display: flex;
   width: 100%;
-  /* background: tomato; */
 }
 
 .contenedor{
@@ -33,5 +32,12 @@
   width: 40%;
 }
 
+.div-actualizar{
+  /* display: none; */
+}
 
+.input-task{
+  background: rgb(230, 238, 214);
+  border: 0;
+}
 
