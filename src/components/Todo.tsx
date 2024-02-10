@@ -78,6 +78,11 @@ const Todo = () => {
     setDescription(value);
   }
 
+  const onDelete = (id:number) => {
+    const result = tasksList.filter((task:Tarea) => task.id != id);
+    setTasksList(result);
+  }
+
   return (
       <div className='contenedor'>
         <h2>TODO APP</h2>
@@ -101,13 +106,7 @@ const Todo = () => {
 
         {
           tasksList.map( (dataTask: Tarea) => (
-            <Task key={dataTask.id} 
-                  id={dataTask.id} 
-                  taskName={`${dataTask.title}`} 
-                  taskDone={dataTask.done}
-                  tasksList={tasksList}
-                  setTasksList={setTasksList}
-             />
+            <Task key={dataTask.id} tarea={dataTask} onDelete={onDelete} />
           ))
         }
 

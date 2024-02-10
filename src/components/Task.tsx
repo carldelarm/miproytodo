@@ -1,58 +1,48 @@
 import { useState } from "react";
+import { Tarea } from "../types/tarea";
 
 interface Props {
-  id:number,
-  taskName: string,
-  taskDone:boolean,
-  tasksList:any[],
-  setTasksList:any
+  tarea: Tarea,
+  onDelete: (id:number) => void
 }
 
-const Task = ({id,taskName,taskDone,tasksList,setTasksList}:Props) => {
+const Task = ({tarea,onDelete}:Props) => {
 
-  const [done, setDone] = useState(taskDone);
+  const {id,title,done} = tarea;
 
-  const onDeleteTask = (event:any) => {
-    const btnSelected = event.target.id;
-    const data = btnSelected.split('_');
-    const idToDelete = data[2];
-    const result = tasksList.filter((task:any) => task.id != idToDelete);
-    setTasksList(result);
-  }
+  const [executed, setExecuted] = useState(done);
 
   const onUpdateTask = () => {
     console.log('Actualizando input');
   }
 
   const onMarkTask = () => {
-    setDone(!done);
+    setExecuted(!executed);
   }
 
   return (
     <section className='caja-tarea'>
         <div style={{width:'10%'}}>
-          <input type="checkbox" 
-                name={`task_${id}`} 
-                id={`task_${id}`} 
-                checked={done} 
+          <input type="checkbox" name={`chk_task_${id}`} id={`chk_task_${id}`} 
+                checked={executed} 
                 onChange={onMarkTask}
           />
         </div>
+
         <div style={{width:'50%', textAlign:'left'}}>
-          <input type="text" value={taskName} className="input-task" onChange={onUpdateTask}/>
+          <input type="text" value={title} className="input-task" onChange={onUpdateTask} />
         </div>
 
-{/*          <div className="div-actualizar" style={{width:'20%', textAlign:'right'}}>
+        {/*          
+        <div className="div-actualizar" style={{width:'20%', textAlign:'right'}}>
             <button className='btn btn-primary btn-sm' 
               name={`btn_update_${id}`} id={`btn_update_${id}`}
               onClick={onUpdateTask}>Actualizar</button>&nbsp;
         </div>
- */}
+        */}
 
         <div style={{width:'40%', textAlign:'right'}}>
-          <button className='btn btn-danger btn-sm' 
-            name={`btn_remove_${id}`} id={`btn_remove_${id}`}
-            onClick={onDeleteTask}>Remover</button>
+          <button className='btn btn-danger btn-sm' onClick={() => onDelete(id)}>Remover</button>
         </div>
     </section>
   )
