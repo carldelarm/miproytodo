@@ -3,21 +3,46 @@ import { Tarea } from "../types/tarea";
 
 interface Props {
   tarea: Tarea,
-  onDelete: (id:number) => void
+  onDelete: (id:number) => void,
+  onUpdate: (data:any) => void
 }
 
-const Task = ({tarea,onDelete}:Props) => {
+const Task = ({tarea,onDelete,onUpdate}:Props) => {
 
   const {id,title,done} = tarea;
 
   const [executed, setExecuted] = useState(done);
+  const [taskDescription, setTaskDescription] = useState(title);
+  const [showBtnUpdate, setShowBtnUpdate] = useState(false);
 
-  const onUpdateTask = () => {
-    console.log('Actualizando input');
+  const onUpdateTask = (event:any) => {
+    const {target} = event;
+    const {value} = target;
+    setTaskDescription(value);
+
+    const btnToHide = document.getElementById(`btn_update_${id}`);
+    if (btnToHide !== null) btnToHide.style.display = 'block';
+    
+    if (value !== title || executed !== done) {
+      setShowBtnUpdate(true);
+    } else {
+      setShowBtnUpdate(false);
+    }  
   }
 
-  const onMarkTask = () => {
-    setExecuted(!executed);
+  const onMarkTask = (event:any) => {
+    const {target} = event;
+    const {checked} = target;
+    setExecuted(checked);
+
+    const btnToHide = document.getElementById(`btn_update_${id}`);
+    if (btnToHide !== null) btnToHide.style.display = 'block';
+
+    if (checked !== done || taskDescription !== title) {
+      setShowBtnUpdate(true);
+    } else {
+      setShowBtnUpdate(false);
+    } 
   }
 
   return (
@@ -30,16 +55,18 @@ const Task = ({tarea,onDelete}:Props) => {
         </div>
 
         <div style={{width:'50%', textAlign:'left'}}>
-          <input type="text" value={title} className="input-task" onChange={onUpdateTask} />
+          <input type="text" value={taskDescription} className="input-task" onChange={onUpdateTask} />
         </div>
 
-        {/*          
-        <div className="div-actualizar" style={{width:'20%', textAlign:'right'}}>
-            <button className='btn btn-primary btn-sm' 
-              name={`btn_update_${id}`} id={`btn_update_${id}`}
-              onClick={onUpdateTask}>Actualizar</button>&nbsp;
-        </div>
-        */}
+        {
+          showBtnUpdate && (
+            <div className="div-actualizar" style={{width:'20%', textAlign:'right'}}>
+              <button className='btn btn-primary btn-sm' 
+                name={`btn_update_${id}`} id={`btn_update_${id}`}
+                onClick={() => onUpdate({id,taskDescription,executed})}>Actualizar</button>&nbsp;
+          </div>
+          )
+        }
 
         <div style={{width:'40%', textAlign:'right'}}>
           <button className='btn btn-danger btn-sm' onClick={() => onDelete(id)}>Remover</button>

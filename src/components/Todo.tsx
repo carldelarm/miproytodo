@@ -2,39 +2,27 @@ import { useEffect, useState } from 'react';
 import Task from './Task';
 import { Tarea } from '../types/tarea';
 
-const data: Tarea[] = [
-  {
-    id: 1,
-    title: 'Trabajar',
-    done: false
-  },
-  {
-    id: 2,
-    title: 'Estudiar',
-    done: false
-  },
-  {
-    id: 3,
-    title: 'Ir al Gym',
-    done: false
-  }
-]
-
-
 const Todo = () => {
 
-  const [contador,setContador] = useState(0);
-  const [tasksList, setTasksList] = useState(data);
+  const inicialList:Tarea[] = [];
+  const [tasksList, setTasksList] = useState(inicialList);
   const [description, setDescription] = useState("");
 
   const getListTasks = async () => {
     console.log('Metodo que deberia consultar todas las tareas');
-    setContador(tasksList.length+1);
+    const todos = localStorage.getItem('todos') || '[]';
+    const tareas:Tarea[] = JSON.parse(todos);
+    localStorage.setItem('todos',JSON.stringify(tareas));
+    setTasksList(tareas);
   }
 
   useEffect(() => {
     getListTasks();
   }, []);
+  
+  useEffect(() => {
+    localStorage.setItem('todos',JSON.stringify(tasksList));
+  }, [tasksList]);
 
   const onAddNewTask = (event:any) => {
     event.preventDefault();
@@ -60,16 +48,15 @@ const Todo = () => {
     }
 
     const newTask: Tarea = {
-      id: contador,
+      id: new Date().getTime(),
       title: `${description}`,
       done: false
     }
 
     const tasksListToUpdate:any = [...tasksList, newTask];
     setTasksList(tasksListToUpdate);
-    setContador(contador+1);
     setDescription("");
-
+    localStorage.setItem('todos',JSON.stringify(tasksListToUpdate));
   }  
 
   const onInputChange = (event:any) => {
@@ -79,9 +66,38 @@ const Todo = () => {
   }
 
   const onDelete = (id:number) => {
-    const result = tasksList.filter((task:Tarea) => task.id != id);
-    setTasksList(result);
+    const newList = tasksList.filter((task:Tarea) => task.id != id);
+    localStorage.setItem('todos',JSON.stringify(newList));
+    setTasksList(newList);
   }
+
+  const onUpdate = (data:any) => {
+    console.log('data',data);
+    const { id,taskDescription,executed } = data;
+    //Borra primera la tarea con el [id]
+    const newList = tasksList.filter((task:Tarea) => task.id != id);
+    //Crear nuevamente la tarea con el mismo [id]
+    const updatedList = [...newList, {id,title:taskDescription,done:executed}];
+
+    updatedList.sort(function (a, b) {
+      if (a.id > b.id) {
+        return 1;
+      }
+      if (a.id < b.id) {
+        return -1;
+      }
+      return 0;
+    });
+
+    localStorage.setItem('todos',JSON.stringify(updatedList));
+    setTasksList(updatedList);
+    //alert('Actualización exitosa.');
+
+    const btnToHide = document.getElementById(`btn_update_${id}`);
+    console.log('btnToHide',btnToHide);
+    if (btnToHide!==null) btnToHide.style.display = 'none';
+    
+  } 
 
   return (
       <div className='contenedor'>
@@ -106,7 +122,11 @@ const Todo = () => {
 
         {
           tasksList.map( (dataTask: Tarea) => (
-            <Task key={dataTask.id} tarea={dataTask} onDelete={onDelete} />
+            <Task key={dataTask.id} 
+                  tarea={dataTask} 
+                  onDelete={onDelete} 
+                  onUpdate={onUpdate}
+            />
           ))
         }
 
