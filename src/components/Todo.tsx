@@ -9,7 +9,6 @@ const Todo = () => {
   const [description, setDescription] = useState("");
 
   const getListTasks = async () => {
-    console.log('Metodo que deberia consultar todas las tareas');
     const todos = localStorage.getItem('todos') || '[]';
     const tareas:Tarea[] = JSON.parse(todos);
     localStorage.setItem('todos',JSON.stringify(tareas));
@@ -72,7 +71,7 @@ const Todo = () => {
   }
 
   const onUpdate = (data:any) => {
-    console.log('data',data);
+    //console.log('data',data);
     const { id,taskDescription,executed } = data;
     //Borra primera la tarea con el [id]
     const newList = tasksList.filter((task:Tarea) => task.id != id);
@@ -91,17 +90,14 @@ const Todo = () => {
 
     localStorage.setItem('todos',JSON.stringify(updatedList));
     setTasksList(updatedList);
-    //alert('Actualización exitosa.');
-
     const btnToHide = document.getElementById(`btn_update_${id}`);
-    console.log('btnToHide',btnToHide);
     if (btnToHide!==null) btnToHide.style.display = 'none';
     
   } 
 
   return (
       <div className='contenedor'>
-        <h2>TODO APP</h2>
+        <h2 className='title'>TODO APP</h2>
 
         <section id="busqueda">
           <div>
@@ -114,7 +110,7 @@ const Todo = () => {
                   value={ description }
                   onChange={ onInputChange }
               />&nbsp;&nbsp;
-              <button type='submit' className='btn btn-primary' onClick={onAddNewTask}>Adicionar</button>&nbsp;&nbsp;
+              <button type='submit' className='btn btn-primary btn-sm' onClick={onAddNewTask}>Adicionar</button>&nbsp;&nbsp;
             </form>
           </div>
         </section>

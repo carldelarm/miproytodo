@@ -4,23 +4,28 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background: #EBEDEF;
 }
 
 
 /* Mi estilos */
 
+.title{
+  text-shadow: 1px 3px 3px black;
+}
+
 .caja-tarea{
   display: flex;
   justify-content: center;
   border: 1px solid lightblue;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-radius: 5px;
   width: 100%;
   color: rgb(45, 78, 75);
   font-weight: bold;
   background: rgb(230, 238, 214);
+  box-shadow: 5px 5px 10px rgba(52, 52, 53, 0.5);
 }
-
 
 .contenedor-principal{
   display: flex;
@@ -29,15 +34,21 @@
 
 .contenedor{
   margin: auto;
-  width: 40%;
-}
-
-.div-actualizar{
-  /* display: none; */
+  width: 50%;
+  border-radius: 5px;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid;
+  box-shadow: 5px 5px 10px rgba(52, 52, 53, 0.5);
 }
 
 .input-task{
   background: rgb(230, 238, 214);
   border: 0;
+  width: 100%;
+}
+
+.div-update{
+  padding: 0;
 }
 
