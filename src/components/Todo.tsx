@@ -107,10 +107,11 @@ const Todo = () => {
                   name='taskname' 
                   id='taskname' 
                   placeholder='Ingrese una nueva tarea...'
+                  className='form-control'
                   value={ description }
                   onChange={ onInputChange }
-              />&nbsp;&nbsp;
-              <button type='submit' className='btn btn-primary btn-sm' onClick={onAddNewTask}>Adicionar</button>&nbsp;&nbsp;
+              />
+              <button type='submit' className='btn btn-primary btn-sm mt-3' onClick={onAddNewTask}>Adicionar</button>&nbsp;&nbsp;
             </form>
           </div>
         </section>
