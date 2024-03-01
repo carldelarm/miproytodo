@@ -45,7 +45,10 @@ const Todo = () => {
     localStorage.setItem('todos',JSON.stringify(tasksList));
   }, [tasksList]);
 
-  const onAddNewTask = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  /**
+   * Metodo que adiciona una nueva tarea.
+   */
+  const onAddNewTask = (event:any) => {
     event.preventDefault();
 
     if(description.trim() === ''){
@@ -92,12 +95,12 @@ const Todo = () => {
     setTasksList(newList);
   }
 
-  const onUpdate = (data:any) => {
-    const { id,taskDescription,executed } = data;
+  const onUpdate = (data:Tarea) => {
+    const { id,title,done } = data;
     //Borra primera la tarea con el [id]
     const newList = tasksList.filter((task:Tarea) => task.id != id);
     //Crear nuevamente la tarea con el mismo [id]
-    const updatedList = [...newList, {id,title:taskDescription,done:executed}];
+    const updatedList:Tarea[] = [...newList, {id,title,done}];
 
     updatedList.sort(function (a, b) {
       if (a.id > b.id) {

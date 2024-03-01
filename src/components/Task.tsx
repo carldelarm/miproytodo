@@ -4,7 +4,7 @@ import { Tarea } from "../types/tarea";
 interface Props {
   tarea: Tarea,
   onDelete: (id:number) => void,
-  onUpdate: (data:object) => void
+  onUpdate: (data:Tarea) => void
 }
 
 const Task = ({tarea,onDelete,onUpdate}:Props) => {
@@ -68,7 +68,7 @@ const Task = ({tarea,onDelete,onUpdate}:Props) => {
                   <>
                     <button className='btn btn-success btn-sm' 
                       name={`btn_update_${id}`} id={`btn_update_${id}`}
-                      onClick={() => onUpdate({id,taskDescription,executed})}>Actualizar</button>&nbsp;
+                      onClick={() => onUpdate({id,title:taskDescription,done:executed})}>Actualizar</button>&nbsp;
                   </>
                 )
               }
