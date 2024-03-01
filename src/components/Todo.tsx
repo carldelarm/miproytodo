@@ -5,7 +5,7 @@ import { Tarea } from '../types/tarea';
 const Todo = () => {
 
   const inicialList:Tarea[] = [];
-  const [tasksList, setTasksList] = useState(inicialList);
+  const [tasksList, setTasksList] = useState<Tarea[]>(inicialList);
   const [description, setDescription] = useState("");
 
   const getListTasks = async () => {
