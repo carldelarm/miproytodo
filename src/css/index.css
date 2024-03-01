@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background: #EBEDEF;
+  background: #fff;
 }
 
 
@@ -17,11 +17,11 @@
 .caja-tarea{
   display: flex;
   justify-content: center;
-  border: 1px solid lightblue;
+  border: 1px solid rgb(12, 18, 199);
   margin-bottom: 10px;
   border-radius: 5px;
   width: 100%;
-  color: rgb(45, 78, 75);
+  color: rgb(45, 47, 78);
   font-weight: bold;
   background: rgb(230, 238, 214);
   box-shadow: 5px 5px 10px rgba(52, 52, 53, 0.5);
@@ -36,7 +36,7 @@
   margin: auto;
   width: 50%;
   border-radius: 5px;
-  background: #fff;
+  background: #f7f7eb;
   padding: 20px;
   border: 1px solid;
   box-shadow: 5px 5px 10px rgba(52, 52, 53, 0.5);
