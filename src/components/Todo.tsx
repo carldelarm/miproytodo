@@ -45,7 +45,7 @@ const Todo = () => {
     localStorage.setItem('todos',JSON.stringify(tasksList));
   }, [tasksList]);
 
-  const onAddNewTask = (event:any) => {
+  const onAddNewTask = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
 
     if(description.trim() === ''){
@@ -74,18 +74,18 @@ const Todo = () => {
       done: false
     }
 
-    const tasksListToUpdate:any = [...tasksList, newTask];
+    const tasksListToUpdate:Tarea[] = [...tasksList, newTask];
     setTasksList(tasksListToUpdate);
     setDescription("");
     localStorage.setItem('todos',JSON.stringify(tasksListToUpdate));
   }  
 
-  const onInputChange = (event:any) => {
-    const {target} = event;
-    const {value} = target;
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { target } = event;
+    const { value } = target;
     setDescription(value);
-  }
-
+  };
+  
   const onDelete = (id:number) => {
     const newList = tasksList.filter((task:Tarea) => task.id != id);
     localStorage.setItem('todos',JSON.stringify(newList));

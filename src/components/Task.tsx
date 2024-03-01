@@ -4,7 +4,7 @@ import { Tarea } from "../types/tarea";
 interface Props {
   tarea: Tarea,
   onDelete: (id:number) => void,
-  onUpdate: (data:any) => void
+  onUpdate: (data:object) => void
 }
 
 const Task = ({tarea,onDelete,onUpdate}:Props) => {
@@ -15,7 +15,7 @@ const Task = ({tarea,onDelete,onUpdate}:Props) => {
   const [taskDescription, setTaskDescription] = useState(title);
   const [showBtnUpdate, setShowBtnUpdate] = useState(false);
 
-  const onUpdateTask = (event:any) => {
+  const onUpdateTask = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const {target} = event;
     const {value} = target;
     setTaskDescription(value);
@@ -30,7 +30,7 @@ const Task = ({tarea,onDelete,onUpdate}:Props) => {
     }  
   }
 
-  const onMarkTask = (event:any) => {
+  const onMarkTask = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const {target} = event;
     const {checked} = target;
     setExecuted(checked);
