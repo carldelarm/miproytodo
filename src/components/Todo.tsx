@@ -9,10 +9,32 @@ const Todo = () => {
   const [description, setDescription] = useState("");
 
   const getListTasks = async () => {
-    const todos = localStorage.getItem('todos') || '[]';
+
+    const todos = localStorage.getItem('todos') ?? '[]';
+    console.log('todos',todos);
     const tareas:Tarea[] = JSON.parse(todos);
-    localStorage.setItem('todos',JSON.stringify(tareas));
-    setTasksList(tareas);
+
+    if (tareas.length === 0){
+
+      const requestOptions: object = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch("https://clase-8-react-back-dev-qkfz.2.us-1.fl0.io", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          console.log(result);
+          const tareas:Tarea[] = JSON.parse(result);
+          localStorage.setItem('todos',JSON.stringify(tareas));
+          setTasksList(tareas);
+        })
+        .catch(error => console.log('error', error));      
+    } else {
+      localStorage.setItem('todos',JSON.stringify(tareas));
+      setTasksList(tareas);
+    }
+
   }
 
   useEffect(() => {
@@ -71,7 +93,6 @@ const Todo = () => {
   }
 
   const onUpdate = (data:any) => {
-    //console.log('data',data);
     const { id,taskDescription,executed } = data;
     //Borra primera la tarea con el [id]
     const newList = tasksList.filter((task:Tarea) => task.id != id);
