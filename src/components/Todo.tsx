@@ -97,6 +97,12 @@ const Todo = () => {
 
   const onUpdate = (data:Tarea) => {
     const { id,title,done } = data;
+
+    if(title.trim() === '') {
+      alert('Por favor, no puede dejar la tarea en blanco!!!');
+      return;
+    }
+
     //Borra primera la tarea con el [id]
     const newList = tasksList.filter((task:Tarea) => task.id != id);
     //Crear nuevamente la tarea con el mismo [id]
