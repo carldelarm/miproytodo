@@ -103,9 +103,9 @@ const Todo = () => {
       return;
     }
 
-    //Borra primera la tarea con el [id]
+    //Borra primero la tarea con el [id] seleccionado
     const newList = tasksList.filter((task:Tarea) => task.id != id);
-    //Crear nuevamente la tarea con el mismo [id]
+    //Crea nuevamente la tarea con el mismo [id]
     const updatedList:Tarea[] = [...newList, {id,title,done}];
 
     updatedList.sort(function (a, b) {
